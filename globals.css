@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0B0E1A;
+  --bg-card: #151A2E;
+  --accent: #6C5CE7;
+}
+
+body {
+  font-feature-settings: "tnum";
+}
+
+@layer utilities {
+  .tabular { font-variant-numeric: tabular-nums; }
+}

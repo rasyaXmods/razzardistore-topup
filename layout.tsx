@@ -1,19 +1,22 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk" });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: `${process.env.NEXT_PUBLIC_BRAND_NAME} — Top Up Game Instan`,
-  description: "Top up diamond, UC, Genesis Crystal, dan voucher game. Proses otomatis 1 menit.",
+  title: "Razzardi Store - Top Up Game",
+  description: "Top up game instan, aman, dan murah.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="id" className={`${inter.variable} ${grotesk.variable}`}>
-      <body className="font-body bg-bg-primary text-white">{children}</body>
+    <html lang="id">
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

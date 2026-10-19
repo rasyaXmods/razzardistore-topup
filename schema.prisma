@@ -1,0 +1,82 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+
+model Game {
+  id       String    @id @default(cuid())
+  slug     String    @unique
+  name     String
+  icon     String?
+  description String?
+  guide    String?
+  active   Boolean   @default(true)
+  sortOrder Int      @default(0)
+  products Product[]
+}
+
+model Product {
+  id            String   @id @default(cuid())
+  gameId        String
+  game          Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  sku           String   @unique
+  name          String
+  price         Int
+  cost          Int
+  originalPrice Int?
+  bonus         String?
+  label         String?
+  active        Boolean  @default(true)
+  sortOrder     Int      @default(0)
+}
+
+model Order {
+  id            String   @id @default(cuid())
+  orderId       String   @unique
+  game          String
+  sku           String
+  userId        String
+  zoneId        String?
+  nickname      String?
+  whatsapp      String
+  email         String?
+  price         Int
+  discount      Int      @default(0)
+  fee           Int      @default(0)
+  total         Int
+  promoCode     String?
+  paymentMethod String
+  status        String   @default("pending")
+  supplierRef   String?
+  supplierNote  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Promo {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  type        String
+  value       Int
+  maxDiscount Int?
+  minSpend    Int      @default(0)
+  quotaLeft   Int
+  active      Boolean  @default(true)
+  expiresAt   DateTime?
+}
+
+model Banner {
+  id        String   @id @default(cuid())
+  imageUrl  String
+  link      String?
+  active    Boolean  @default(true)
+  startAt   DateTime?
+  endAt     DateTime?
+  sortOrder Int      @default(0)
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         String   @default("owner")
+  createdAt    DateTime @default(now())
+}
